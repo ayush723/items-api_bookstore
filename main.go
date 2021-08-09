@@ -1,15 +1,9 @@
 package main
 
 import (
-	"Microservice_REST_UDEMY/items-api_bookstore/controllers"
-	"net/http"
-
-	"github.com/gorilla/mux"
+	"github.com/ayush723/items-api_bookstore/app"
 )
 
-var (
-	router = mux.NewRouter()
-)
-func main(){
-	router.HandleFunc("/items", controllers.Create).Methods(http.MethodPost)
+func main() {
+	app.StartApplication
 }

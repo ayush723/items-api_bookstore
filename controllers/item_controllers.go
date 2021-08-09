@@ -10,8 +10,19 @@ import (
 	"github.com/ayush723/oauth-go_bookstore/oauth"
 )
 
-func Create(w http.ResponseWriter, r *http.Request){
-	if err := oauth.AuthenticateRequest(r); err != nil{
+var (
+	ItemController itemsControllerInterface = &itemsController{}
+)
+
+type itemsControllerInterface interface {
+	Create(http.ResponseWriter, *http.Request)
+	Get(http.ResponseWriter, *http.Request)
+}
+
+type itemsController struct{}
+
+func (s *itemsController) Create(w http.ResponseWriter, r *http.Request) {
+	if err := oauth.AuthenticateRequest(r); err != nil {
 		//TODO: return error to the user
 		return
 	}
@@ -20,7 +31,7 @@ func Create(w http.ResponseWriter, r *http.Request){
 	}
 
 	result, err := services.ItemsService.Create(item)
-	if err != nil{
+	if err != nil {
 		//todo:retunr error json to the user
 	}
 
@@ -29,6 +40,6 @@ func Create(w http.ResponseWriter, r *http.Request){
 	//todo:return created item as json with http status 201- created
 }
 
-func Get(){
+func (s *itemsController) Get(w http.ResponseWriter, r *http.Request) {
 
 }
