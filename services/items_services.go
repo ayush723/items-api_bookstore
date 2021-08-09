@@ -1,7 +1,7 @@
 package services
 
 import (
-	"Microservice_REST_UDEMY/items-api_bookstore/domain/items"
+	"github.com/ayush723/items-api_bookstore/domain/items"
 
 	"github.com/ayush723/utils-go_bookstore/rest_errors"
 )
