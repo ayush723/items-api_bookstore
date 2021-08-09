@@ -30,10 +30,10 @@ func (s *itemsController) Create(w http.ResponseWriter, r *http.Request) {
 		Seller: oauth.GetCallerId(r),
 	}
 
-	result, err := services.ItemsService.Create(item)
-	if err != nil {
-		//todo:retunr error json to the user
-	}
+	result := services.ItemsService.Create(item)
+	// if err != nil {
+	// 	//todo:retunr error json to the user
+	// }
 
 	fmt.Println(result)
 
