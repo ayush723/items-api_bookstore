@@ -1,17 +1,22 @@
 package controllers
 
 import (
-	"fmt"
+	"encoding/json"
+	"io/ioutil"
+
 	"net/http"
+
+	"github.com/ayush723/items-api_bookstore/utils/http_utils"
 
 	"github.com/ayush723/items-api_bookstore/domain/items"
 	"github.com/ayush723/items-api_bookstore/services"
+	"github.com/ayush723/utils-go_bookstore/rest_errors"
 
 	"github.com/ayush723/oauth-go_bookstore/oauth"
 )
 
 var (
-	ItemController itemsControllerInterface = &itemsController{}
+	ItemsController itemsControllerInterface = &itemsController{}
 )
 
 type itemsControllerInterface interface {
@@ -23,21 +28,40 @@ type itemsController struct{}
 
 func (s *itemsController) Create(w http.ResponseWriter, r *http.Request) {
 	if err := oauth.AuthenticateRequest(r); err != nil {
-		//TODO: return error to the user
+		// http_utils.RespondError(w, *err)
 		return
 	}
-	item := items.Item{
-		Seller: oauth.GetCallerId(r),
+	sellerId := oauth.GetCallerId(r)
+	if sellerId == 0{
+		respErr := rest_errors.NewUnauthorizedError("unable to retrieve user information from given access_token")
+		http_utils.RespondError(w, respErr)
+		return
 	}
 
-	result := services.ItemsService.Create(item)
-	// if err != nil {
-	// 	//todo:retunr error json to the user
+	var itemRequest items.Item
+	requestBody, err := ioutil.ReadAll(r.Body)
+	if err != nil {
+		resperr := rest_errors.NewBadRequestError("invalid request body")
+		http_utils.RespondError(w, *resperr)
+		return
+	}
+	defer r.Body.Close()
+
+	if err := json.Unmarshal(requestBody, &itemRequest); err != nil {
+		resperr := rest_errors.NewBadRequestError("invalid items json")
+		http_utils.RespondError(w, *resperr)
+		return
+	}
+	
+	itemRequest.Seller = sellerId
+	result := services.ItemsService.Create(itemRequest)
+	// if createErr != nil {
+	// http_utils.RespondError(w, *createErr)
+	// return
 	// }
 
-	fmt.Println(result)
+	http_utils.RespondJson(w, http.StatusCreated, result)
 
-	//todo:return created item as json with http status 201- created
 }
 
 func (s *itemsController) Get(w http.ResponseWriter, r *http.Request) {
