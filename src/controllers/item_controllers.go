@@ -10,9 +10,9 @@ import (
 	"github.com/ayush723/items-api_bookstore/src/utils/http_utils"
 	"github.com/gorilla/mux"
 
-	"github.com/ayush723/items-api_bookstore/domain/items"
-	"github.com/ayush723/items-api_bookstore/domain/queries"
-	"github.com/ayush723/items-api_bookstore/services"
+	"github.com/ayush723/items-api_bookstore/src/domain/items"
+	"github.com/ayush723/items-api_bookstore/src/domain/queries"
+	"github.com/ayush723/items-api_bookstore/src/services"
 	"github.com/ayush723/utils-go_bookstore/rest_errors"
 
 	"github.com/ayush723/oauth-go_bookstore/oauth"

@@ -1,8 +1,8 @@
 package services
 
 import (
-	"github.com/ayush723/items-api_bookstore/domain/items"
-	"github.com/ayush723/items-api_bookstore/domain/queries"
+	"github.com/ayush723/items-api_bookstore/src/domain/items"
+	"github.com/ayush723/items-api_bookstore/src/domain/queries"
 	"github.com/ayush723/utils-go_bookstore/rest_errors"
 )
 
