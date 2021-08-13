@@ -86,6 +86,7 @@ func (s *itemsController) Search(w http.ResponseWriter, r *http.Request){
 		return
 	}
 	defer r.Body.Close()
+	//the incoming request should have format of EsQuery type
 	var query queries.EsQuery
 	if err := json.Unmarshal(bytes, &query); err != nil{
 		apiErr := rest_errors.NewBadRequestError("invalid json body")
@@ -98,6 +99,6 @@ func (s *itemsController) Search(w http.ResponseWriter, r *http.Request){
 		return
 	}
 	http_utils.RespondJson(w,http.StatusOK,items)
-	return
+	
 	
 }

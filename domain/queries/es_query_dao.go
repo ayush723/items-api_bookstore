@@ -12,6 +12,7 @@ func (q EsQuery) Build() elastic.Query{
 		equalsQueries = append(equalsQueries, elastic.NewMatchQuery(eq.Field, eq.Value))
 		
 	}
+	//must meet all criteria
 	query.Must(equalsQueries...)
 	return query
 }
