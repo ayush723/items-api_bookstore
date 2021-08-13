@@ -7,7 +7,7 @@ import (
 
 	"net/http"
 
-	"github.com/ayush723/items-api_bookstore/utils/http_utils"
+	"github.com/ayush723/items-api_bookstore/src/utils/http_utils"
 	"github.com/gorilla/mux"
 
 	"github.com/ayush723/items-api_bookstore/domain/items"

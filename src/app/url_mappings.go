@@ -3,7 +3,7 @@ package app
 import (
 	"net/http"
 
-	"github.com/ayush723/items-api_bookstore/controllers"
+	"github.com/ayush723/items-api_bookstore/src/controllers"
 )
 
 func mapUrls() {
